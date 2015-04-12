@@ -30,3 +30,16 @@
 
 (define (multiples-sum-3 n)
   (+ (sum-list 5 n) (sum-list 3 n) (* -1 (sum-list 15 n))))
+
+; latest approach
+; maths makes things faster
+
+(define (quick-sum n)
+  (/ (* n (+ n 1)) 2))
+
+(define (quick-sum-by val n)
+  (* val (quick-sum (quotient n val))))
+
+(define (multiples-sum-4 n)
+  (+ (quick-sum-by 3 n) (quick-sum-by 5 n) (* -1 (quick-sum-by 15 n))))
+  
