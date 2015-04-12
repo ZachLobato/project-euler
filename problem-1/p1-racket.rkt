@@ -10,7 +10,6 @@
 
 ;(multiples-sum 1000)
 
-
 ; more complicated solution
 ; still has same problems with large numbers
 (define (set-less-than val n)
@@ -19,3 +18,15 @@
 
 (define (multiples-sum-2 n)
   (for/sum ([i (set-union (set-less-than 5 n) (set-less-than 3 n))]) i))
+
+; better solution
+; still can't reach 1,000,000,000 threshold
+(define (list-less-than val n)
+  (for/list ([i (+ 1 (quotient n val))])
+    (* i val)))
+
+(define (sum-list val n)
+  (for/sum ([i (list-less-than val n)]) i))
+
+(define (multiples-sum-3 n)
+  (+ (sum-list 5 n) (sum-list 3 n) (* -1 (sum-list 15 n))))
