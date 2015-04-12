@@ -2,8 +2,9 @@
 
 ; Final Solution
 
-; Determines if a number is natural or not
+; Determines if an input is a natural number or not
 ; Assuming zero is not natural
+; num = any input
 (define (natural? num)
   (and (integer? num) (positive? num)))
 
