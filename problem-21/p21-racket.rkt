@@ -2,8 +2,15 @@
 
 (require math/number-theory)
 
+(define ht-amicables (make-hash))
+
 (define (divisors-sum x)
-  (- (apply + (divisors x)) x))
+  (begin
+    (if (dict-has-key? ht-amicables x)
+        (hash-ref ht-amicables x)
+        (begin
+          (hash-set! ht-amicables x (- (apply + (divisors x)) x))
+          (hash-ref ht-amicables x)))))
 
 (define (amicable? x y)
   (if (and (equal? x (divisors-sum y))
