@@ -3,33 +3,26 @@
 
 (require math/number-theory)
 
-; For this problem, I just took the common factors of the numbers 1-20
-(* 19 17 13 11 7 5 3 3 2 2 2 2)
+; Calculate the least-common-multiple of a list of values
+; list-of-values = natural numbers
+(define (least-common-multiples list-of-nums)
+  ; create a hashtable
+  (define ht-factors (make-hash))
+  ; for each number
+  (for/list ([i list-of-nums])
+    ; for each of its factors
+    (for/list ([pair (factorize i)])
+      (if (dict-has-key? ht-factors (car pair))
+          ; if key already in dictionary, check value
+          (let ([power (hash-ref ht-factors (car pair))])
+            ; when value is higher, update key to higher value
+            (when (> (cadr pair) power)
+              (hash-set! ht-factors (car pair) (cadr pair))))
+          ; else, add key-value pair to dictionary
+          (hash-set! ht-factors (car pair) (cadr pair)))))
+  ; calculate multiples of all of the values
+  (for/product ([key (hash-keys ht-factors)])
+    (expt key (hash-ref ht-factors key))))
 
-; 2 2 5x
-; 19x
-; 2 3 3x
-; 17x
-; 2 2 2 2x
-; 3 5x
-; 2 7x
-; 13x
-; 2 2 3x
-; 11x
-; 5 2x
-; 3 3x
-; 2 2 2x
-; 1 7x
-; 2 3x
-; 1 5x
-; 2 2x
-; 1 3x
-; 1 2x
-
-; TODO
-; create a hashtable
-; if key already in dictionary, check value
-;   if value is higher, update key to higher value
-;   else, do nothing
-; else, add key-value pair to dictionary
-; calculate multiples of all of the values
+(least-common-multiples '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20))
+(least-common-multiples '(1 2 3 4 5 6 7 8 9 10))
