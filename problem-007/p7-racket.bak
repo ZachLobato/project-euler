@@ -27,5 +27,3 @@
 ; num = any input
 (define (natural? val)
   (and (integer? val) (positive? val)))
-
-(return-nth-prime 10001)
