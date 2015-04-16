@@ -12,7 +12,6 @@
           [else (nth-prime (get-next-prime cur-prime) (sub1 i))]))
       (error "Invalid Input")))
 
-
 ; Calculates the next prime number given any natural number
 ; num = natural num
 (define (get-next-prime num)
